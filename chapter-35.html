@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>35 — 1청년부 기도훈련집</title>
+    <style>body{font-family:"Noto Sans KR",system-ui,Arial;margin:24px;background:#fffefb;color:#0f172a}.nav{display:flex;gap:8px;align-items:center;margin-bottom:18px}.star{font-size:20px;border:0;background:transparent;cursor:pointer}.star.on{color:#f6ad55}a.button{background:#2b6cb0;color:#fff;padding:8px 12px;border-radius:6px;text-decoration:none}.content{background:#fff;padding:20px;border-radius:8px;box-shadow:0 6px 18px rgba(15,23,42,0.06)}</style>
+    <style>
+      :root{ --base-font-size:16px }
+      .font-btn{background:transparent;border:1px solid rgba(15,23,42,0.06);padding:6px 8px;border-radius:6px;cursor:pointer;color:#2b6cb0}
+    </style>
+    <style>
+      :root{ --base-font-size: clamp(14px, 3.5vw, 18px); }
+      @media (max-width:640px){
+        body{ margin:16px; }
+        .nav{ flex-wrap:wrap; gap:10px }
+        .font-btn, .star, a.button{ padding:10px 12px; min-height:44px; font-size:16px }
+        .content{ padding:16px; line-height:1.95 }
+      }
+      img, iframe, table { max-width:100%; height:auto }
+      .content { word-break:break-word; -webkit-font-smoothing:antialiased }
+    </style>
+  </head>
+  <body>
+    <div class="nav">
+      <a class="button" href="main.html">목차로 돌아가기</a>
+      <a class="button" href="chapter-34.html">이전 (34)</a>
+      <button id="starBtn" class="star" aria-pressed="false" title="즐겨찾기">☆</button>
+      <button id="fontDec" class="font-btn">A-</button>
+      <button id="fontReset" class="font-btn">A</button>
+      <button id="fontInc" class="font-btn">A+</button>
+    </div>
+    <main class="content">
+      <h1><성령 충만 기도문></h1>
+      <p>내용을 작성하세요.</p>
+      <p>보혜사 성령 하나님!<br>
+        이 시간 내 심령 속에 임하여 주시옵소서!</p>
+      <p>성령 하나님께서<br>
+        내 마음을 통치하시고, <br>
+        내 육체를 통치하여 주시옵소서!</p>
+      <p>나의 모든 죄를 예수 그리스도의 보혈로<br>
+        깨끗게 하여 주시옵소서!<br>
+        정결케 하여 주시옵소서!</p>
+      <p>성령 하나님은 나의 왕이십니다. <br>
+        성령 하나님은 나의 주인이십니다.</p>
+      <p>성령 하나님이 나에게 임하시면, <br>
+        나의 병이 나을 줄로 믿습니다!<br>
+        성령 하나님이 나에게 임하시면, <br>
+        악한 사단 마귀가 떠날 줄로 믿습니다. <br>
+        성령 하나님, 나를 치료하여 주옵소서! <br>
+        나를 구원하여 주옵소서!</p>
+      <h4>* 마음과 생각을 일치하며 ‘속으로’ 기도하면 됩니다</h4>
+    </main>
+    <script>
+      const FAVORITES_KEY = 'ebookFavorites_v1';
+      function loadFavorites(){ try{ return JSON.parse(localStorage.getItem(FAVORITES_KEY)||'[]') }catch(e){return []} }
+      function saveFavorites(list){ localStorage.setItem(FAVORITES_KEY, JSON.stringify(list)) }
+      const id = 'chapter-35';
+      const btn = document.getElementById('starBtn');
+      function refresh(){ const favs=loadFavorites(); const on=favs.indexOf(id)!==-1; btn.classList.toggle('on',on); btn.textContent= on? '★':'☆'; btn.setAttribute('aria-pressed', on? 'true':'false'); }
+      btn.addEventListener('click', ()=>{ const favs=loadFavorites(); const idx=favs.indexOf(id); if(idx===-1) favs.push(id); else favs.splice(idx,1); saveFavorites(favs); refresh(); });
+  refresh();
+
+  // Font controls (persisted)
+  const FONT_KEY = 'ebookBaseFontSize_v1';
+  function loadFont(){ const v = parseInt(localStorage.getItem(FONT_KEY),10); return Number.isFinite(v)? v:16 }
+  function saveFont(v){ localStorage.setItem(FONT_KEY, String(v)) }
+  function applyFont(v){ try{ document.documentElement.style.setProperty('--base-font-size', v+'px'); const el=document.querySelector('.content'); if(el) el.style.fontSize = v+'px'; }catch(e){} }
+  document.getElementById('fontInc').addEventListener('click', ()=>{ const n = loadFont()+1; saveFont(n); applyFont(n); });
+  document.getElementById('fontDec').addEventListener('click', ()=>{ const n = loadFont()-1; saveFont(n); applyFont(Math.max(10,n)); });
+  document.getElementById('fontReset').addEventListener('click', ()=>{ saveFont(16); applyFont(16); });
+  applyFont(loadFont());
+    </script>
+  </body>
+</html>
