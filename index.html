@@ -44,14 +44,100 @@
 			.toc-entry{display:flex; align-items:center; gap:8px}
 			.star-btn{background:transparent; border:0; font-size:18px; cursor:pointer; line-height:1; padding:6px; border-radius:6px}
 			.star-btn[aria-pressed="true"]{color:#f6ad55} /* filled-ish color */
-			.favorites-list{margin-top:12px}
-			.favorites-list li{padding:8px 0}
-			.toc-list a{color:var(--accent); text-decoration:none; padding:8px 12px; border-radius:8px}
-			.toc-list a.active{background:rgba(43,108,176,0.08)}
+				/* make favorites flush-left like the TOC (remove default UL padding) */
+				.favorites-list{margin-top:12px; padding-left:4px; list-style:none}
+					.favorites-list li{padding:4px 0; display:flex; align-items:center; gap:2px}
+				/* Favorites list: style links like TOC pill buttons */
+				.favorites-list li a{
+					display:flex; align-items:center; gap:8px;
+					width:100%;
+					padding:10px 12px;
+					background:#ffffff;
+					border:1px solid rgba(15,23,42,0.06);
+					border-radius:10px;
+					color:var(--accent);
+					text-decoration:none;
+					transition:transform .06s ease, background .12s ease, box-shadow .12s ease, color .12s ease;
+				}
+				.favorites-list li a:hover{
+					background:rgba(43,108,176,0.06);
+					transform:translateY(-1px);
+					border-color:rgba(43,108,176,0.12);
+					color: #0f4f86;
+				}
+				.favorites-list li a:focus{
+					outline:none;
+					box-shadow:0 0 0 4px rgba(43,108,176,0.06);
+				}
+				/* Normalize visited color (remove browser default purple) */
+				.favorites-list li a:visited{ color: rgba(43,108,176,0.95); }
+				/* Active state like TOC selection */
+				.favorites-list li a.active,
+				.favorites-list li a[aria-current="page"]{
+					background:var(--accent);
+					color:#fff;
+					border-color: rgba(43,108,176,0.12);
+				}
+			/* 목차(ol) 기본 들여쓰기 제거하고 항목을 왼쪽으로 붙임 */
+			/* TOC 리스트: 왼쪽에 붙이고 별 버튼과 제목 사이 간격을 좁힘 */
+			article#toc ol{ padding-left:4px; margin:0; list-style:none; }
+			article#toc ol li{ display:flex; align-items:center; gap:6px; padding:4px 0; position:relative; }
+			/* 별 버튼을 가능한 왼쪽에 붙이고 크기 고정으로 제목과의 간격 최소화 */
+			article#toc ol li .star-btn{ margin:0; padding:4px 6px; font-size:16px; width:28px; min-width:28px; text-align:center; }
+			article#toc ol li a{ flex:1; display:inline-block; padding-left:4px; }
+			/* TOC 리스트를 버튼처럼 보이게 함 (pill) */
+			article#toc ol li a{
+				display:flex; align-items:center; gap:8px;
+				width:100%;
+				padding:10px 12px;
+				background:#ffffff;
+				border:1px solid rgba(15,23,42,0.06);
+				border-radius:10px;
+				color:var(--accent);
+				text-decoration:none;
+				transition:transform .06s ease, background .12s ease, box-shadow .12s ease, color .12s ease;
+			}
+			article#toc ol li a:hover{
+				background:rgba(43,108,176,0.06);
+				transform:translateY(-1px);
+				border-color:rgba(43,108,176,0.12);
+				color: #0f4f86;
+			}
+			article#toc ol li a:focus{
+				outline:none;
+				box-shadow:0 0 0 4px rgba(43,108,176,0.06);
+			}
+			/* 방문 링크 색상 통일 (브라우저 기본 보라색 제거) */
+			article#toc ol li a:visited{ color: rgba(43,108,176,0.95); }
+			/* 활성(선택) 상태 스타일 - JS 토글과 함께 사용 가능 */
+			article#toc ol li a.active,
+			article#toc ol li a[aria-current="page"]{
+				background:var(--accent);
+				color:#fff;
+				border-color: rgba(43,108,176,0.12);
+			}
+			/* 탭처럼 보이는 목차 버튼 스타일 (누르기 전에 버튼처럼 보이도록) */
+			.toc-list a{
+				display:inline-flex; align-items:center; gap:8px;
+				padding:8px 12px; border-radius:10px; text-decoration:none;
+				color:var(--accent); background:#ffffff; border:1px solid rgba(15,23,42,0.06);
+				box-shadow: 0 1px 0 rgba(15,23,42,0.02);
+				transition:background .12s ease, color .12s ease, border-color .12s ease, transform .06s ease;
+			}
+			.toc-list a:hover,
+			.toc-list a:focus{ background:rgba(43,108,176,0.06); outline: none; border-color: rgba(43,108,176,0.12); transform: translateY(-1px) }
+			.toc-list a.active{ background:var(--accent); color:#fff; border-color: rgba(43,108,176,0.12); box-shadow:none }
 			.content{
 				padding:28px; line-height:1.9; font-size:var(--base-font-size); min-height:320px;
 			}
-			.font-btn{background:transparent;border:1px solid rgba(15,23,42,0.06);padding:6px 8px;border-radius:6px;cursor:pointer;color:var(--accent)}
+			/* 글자 크기 버튼도 누르기 전에 버튼처럼 보이도록 조정 */
+			.font-btn{
+				background:#ffffff; border:1px solid rgba(15,23,42,0.06); padding:8px 10px; border-radius:8px; cursor:pointer; color:var(--accent);
+				box-shadow: 0 1px 0 rgba(15,23,42,0.02);
+				transition:background .12s ease, transform .06s ease;
+			}
+			.font-btn:hover{ background:rgba(43,108,176,0.04); transform: translateY(-1px) }
+			.font-btn[aria-pressed="true"]{ background:var(--accent); color:#fff; border-color: rgba(43,108,176,0.12) }
 			/* 그룹으로 만든 글자 크기 컨트롤: 행으로 배치됩니다 */
 			.font-controls{display:flex; gap:8px; align-items:center}
 			article.chapter{display:none}
@@ -68,9 +154,36 @@
 				.cover-art{width:120px;height:160px}
 				/* 버튼들이 화면에서 넘치지 않도록 줄바꿈 허용 및 간격 조정 */
 				.nav, .page-controls { flex-wrap: wrap; gap:10px; }
+				/* 모바일에서 목차 타이틀이 길면 줄바꿈 대신 축약해서 한 줄로 표시 */
+				/* 별 버튼과 제목을 한 줄로 배치. 줄바꿈 대신 글자 크기를 축소해서 들어오게 함 */
+				/* mobile: position star absolute and make link fill remaining width so the "button" background extends to the right */
+					article#toc ol li{ display:flex; align-items:center; gap:6px; position:relative; }
+					article#toc ol li .star-btn{ position:absolute; left:-4px; top:50%; transform:translateY(-50%); width:28px; min-width:28px; padding:4px 6px }
+					article#toc ol li a{
+						display:block;
+						margin-left:30px; /* star moved further left; reduce reserved space so button can be wider */
+						width:calc(100% - 34px);
+						white-space:nowrap; /* keep one line */
+						/* scale text down on small screens */
+						font-size: clamp(12px, 3.2vw, 14px);
+						text-align:left;
+					}
+					/* Favorites: same mobile behavior as TOC */
+					.favorites-list li{ display:flex; align-items:center; gap:6px; position:relative; }
+					.favorites-list li .star-btn{ position:absolute; left:-4px; top:50%; transform:translateY(-50%); width:28px; min-width:28px; padding:4px 6px }
+					.favorites-list li a{
+						display:block;
+						margin-left:30px;
+						width:calc(100% - 34px);
+						white-space:nowrap;
+						font-size: clamp(12px, 3.2vw, 14px);
+						text-align:left;
+					}
 				/* 터치 친화적 버튼 크기 */
 				.font-btn, .btn, .star-btn { padding:10px 12px; min-height:44px; font-size:16px; }
 				.content{ padding:16px; line-height:1.95; }
+				/* 목차 네비 상단(탭) 글씨를 약간 줄여서 줄바꿈 확률을 낮춤 */
+				.toc-list a{ font-size:14px; }
 				/* 목차는 세로로 쌓아서 가독성 개선 */
 				.toc-list{ flex-direction:column; gap:8px; }
 			}
@@ -298,13 +411,19 @@
 								const link = document.querySelector('a[href$="'+id+'.html"]') || document.querySelector('a[data-target="'+id+'"]');
 								const title = link ? link.textContent.trim() : id;
 								const li = document.createElement('li');
-								const a = document.createElement('a'); a.href = id + '.html'; a.textContent = title; // navigate to external chapter page
-								const rm = document.createElement('button'); rm.className='star-btn'; rm.title='제거'; rm.textContent='★'; rm.style.marginLeft='8px';
+								// create star button first so it appears on the left like the TOC
+								const rm = document.createElement('button');
+								rm.className = 'star-btn';
+								rm.dataset.targetId = id; // allow updateStarButtons() to find it
+								rm.title = '즐겨찾기';
+								rm.textContent = '☆';
 								rm.addEventListener('click', e=>{
 									e.preventDefault();
-									toggleFavorite(id, false);
-									});
-								li.appendChild(a); li.appendChild(rm); listEl.appendChild(li);
+									// toggle favorite on/off (same behavior as TOC)
+									toggleFavorite(id);
+								});
+								const a = document.createElement('a'); a.href = id + '.html'; a.textContent = title; // navigate to external chapter page
+								li.appendChild(rm); li.appendChild(a); listEl.appendChild(li);
 							});
 						}
 
